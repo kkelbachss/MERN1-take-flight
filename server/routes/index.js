@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const flightRoutes = require('./flightRoutes');
+const flightRoutes = require('./flight.routes');
 
 router.use('/flights', flightRoutes);
 
