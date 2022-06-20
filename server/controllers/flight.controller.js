@@ -12,7 +12,7 @@ const findAllFlights = async () => {
 }
 
 //GET one flight
-const getFlightById = async (id, res) => {
+const getFlightById = async (id) => {
     try {
         const flight = await Flight.findById(id)
         return flight;
@@ -23,12 +23,15 @@ const getFlightById = async (id, res) => {
 }
 
 //POST one flight
-const addFlight = async ({flightNumber, departureAirport, arrivalAirport, passengerCapacity}) => {
+const addFlight = async ({flightNumber, departureAirport, departureDate, arrivalAirport, arrivalDate, currentPassengerCount, passengerCapacity}) => {
     try {
         const flight = new Flight({
             flightNumber,
             departureAirport,
+            departureDate,
             arrivalAirport,
+            arrivalDate,
+            currentPassengerCount,
             passengerCapacity
         });
 
