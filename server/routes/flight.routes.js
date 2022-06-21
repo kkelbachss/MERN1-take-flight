@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { addFlight, 
+const { 
+    addFlight, 
     findAllFlights, 
     getFlightById, 
     updateFlight, 
