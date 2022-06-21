@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function flightSubmitForm() {
-    // const [formState, setFormState] = useState({
-    //     flightNumber,
-    //     departureAirport,
-    //     departureDate,
-    //     arrivalAirport,
-    //     arrivalDate,
-    //     passengerCount,
-    //     passengerCapacity
-    // })
+    const [formState, setFormState] = useState({
+        flightNumber,
+        departureAirport,
+        departureDate,
+        arrivalAirport,
+        arrivalDate,
+        passengerCount,
+        passengerCapacity
+    })
 
 
-    // function submitHandler(e) {
-    //     e.preventDefault();
-    //     console.log('SubmitFlight', formState);
-    // }
+    function submitHandler(e) {
+        e.preventDefault();
+        console.log('SubmitFlight', formState);
+    }
 
     return (
         <section id="flightSubmitForm">
