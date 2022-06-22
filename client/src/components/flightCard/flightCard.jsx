@@ -3,11 +3,11 @@ import React from 'react';
 function FlightCard(props) {
 
 
-    return(
+    return (
         <div className="flightCard" key={props.id}>
             <ul>
                 <li key={props.flightNum}>
-                    <strong>Flight Number:  {props.flightNum}</strong>
+                    Flight Number: <strong>{props.flightNum}</strong>
                 </li>
                 <li key={props.dAirport}>
                     Departing from {props.dAirport} on {props.dDate}.

@@ -22,15 +22,16 @@ function FlightSubmitForm() {
     async function submitHandler(e) {
         e.preventDefault();
         console.log('SubmitFlight', formState);
-        // try {
-        //     await api.createFlight(formState);
-        // } catch (err) {
-        //     console.error(err);
-        // }
+        try {
+            await api.createFlight(formState);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     // updates error section and formState
     // set validators for time as well
+    // i wanted this to wanr the user of the requirements of each parameter but its acting up in react
     function changeHandler(e) {
         if (e.target.name === 'flightNumber') {
         const isValid = validateFlightNum(e.target.value);
@@ -48,6 +49,7 @@ function FlightSubmitForm() {
         }
         if (!errorMessage) {
             setFormState({ ...formState, [e.target.name]: e.target.value });
+            console.log(formState);
         }
     };
 
