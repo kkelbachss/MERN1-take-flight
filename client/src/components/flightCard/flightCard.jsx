@@ -4,20 +4,20 @@ function flightCard(props) {
 
 
     return(
-        <div className="flightCard">
+        <div className="flightCard" key={props.id}>
             <ul>
-                {/* <li>
+                <li key={props.flightNum}>
                     <strong>Flight Number:  {props.flightNum}</strong>
                 </li>
-                <li>
-                    Departing from {dAirport} on {dDate}.
+                <li key={props.dAirport}>
+                    Departing from {props.dAirport} on {props.dDate}.
                 </li>
-                <li>
-                    Arriving at {aAirport} on {aDate}.
+                <li key={props.aAirport}>
+                    Arriving at {props.aAirport} on {props.aDate}.
                 </li>
-                <li>
-                    Currently carrying {pCount} out {pMax} seats.
-                </li> */}
+                <li key={props.pMax}>
+                    Currently carrying {props.pCount} out {props.pMax} seats.
+                </li>
             </ul>
         </div>
     )
