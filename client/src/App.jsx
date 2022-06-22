@@ -1,7 +1,7 @@
 import './App.css';
 import {useState, useEffect} from 'react';
-// import SubmitFlightForm from './components/flightSubmitForm/flightSubmitForm';
-import FlightCard from './components/flightCard/flightCard';
+import SubmitFlightForm from './components/FlightSubmitForm/FlightSubmitForm';
+import FlightCard from './components/FlightCard/FlightCard';
 import api from './utils/api';
 
 function App() {
@@ -20,6 +20,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+
+        <SubmitFlightForm />
+
         { flightList.map((flight)=>(
          <FlightCard 
          id = {flight._id}
@@ -32,6 +35,7 @@ function App() {
          pMax = {flight.passengerCapacity}
          /> 
         ))}  
+        
       </header>
     </div>
   );

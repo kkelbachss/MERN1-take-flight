@@ -1,6 +1,6 @@
 import React from 'react';
 
-function flightCard(props) {
+function FlightCard(props) {
 
 
     return(
@@ -15,7 +15,7 @@ function flightCard(props) {
                 <li key={props.aAirport}>
                     Arriving at {props.aAirport} on {props.aDate}.
                 </li>
-                <li key={props.pMax}>
+                <li key={props.aDate}>
                     Currently carrying {props.pCount} out {props.pMax} seats.
                 </li>
             </ul>
@@ -23,4 +23,4 @@ function flightCard(props) {
     )
 }
 
-export default flightCard;
+export default FlightCard;

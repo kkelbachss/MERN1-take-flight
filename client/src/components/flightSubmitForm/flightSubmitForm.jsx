@@ -1,30 +1,41 @@
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+import api from '../../utils/api';
+import {validateFlightNum} from '../../utils/validators';
 
-function flightSubmitForm() {
-    const [formState, setFormState] = useState({
-        flightNumber,
-        departureAirport,
-        departureDate,
-        arrivalAirport,
-        arrivalDate,
-        passengerCount,
-        passengerCapacity
-    })
+function FlightSubmitForm() {
+    //states for the form and error section in form
+    const [formState, setFormState] = useState(
+        {
+            flightNumber: '',
+            departureAirport: '',
+            departureDate: '',
+            arrivalAirport: '',
+            arrivalDate: '',
+            currentPassengerCount: 0,
+            passengerCapacity: 0
+        });
+   
+    const [errorMessage, setErrorMessage] = useState('');
 
-
-    function submitHandler(e) {
+    // api call to post
+    async function submitHandler(e) {
         e.preventDefault();
         console.log('SubmitFlight', formState);
-
+        // try {
+        //     await api.createFlight(formState);
+        // } catch (err) {
+        //     console.error(err);
+        // }
     }
 
+    // updates error section and formState
+    // set validators for time as well
     function changeHandler(e) {
-        if (e.target.name === 'flight#') {
-        const isValid = validateEmail(e.target.value);
+        if (e.target.name === 'flightNumber') {
+        const isValid = validateFlightNum(e.target.value);
         if (!isValid) {
-            setErrorMessage('Your email is invalid.');
+            setErrorMessage('Your flight # is invalid.');
         } else {
             setErrorMessage('');
         }
@@ -40,41 +51,50 @@ function flightSubmitForm() {
         }
     };
 
+    // a beefy submit form
+    // used onBlur so that state will update with every click off of an e.target
     return (
-        <section id="flightSubmitForm" onSubmit={submitHandler}>
+        <form id="flightSubmitForm" onSubmit={submitHandler}>
             <div className="title">
                 <h2>Submit Flight information</h2>
             </div>
             <div className="form-row">
-                <label className="form-title" htmlFor="FlightNumber">Flight#:</label>
-                <input type="text" name="flight#" placeholder="" onBlur={changeHandler}/>
+                <label className="form-title" htmlFor="flightNumber">Flight#:</label>
+                <input type="text" name="flightNumber" placeholder="" onBlur={changeHandler}/>
             </div>
             <div className="form-row">    
                 <label className="form-title" htmlFor="departureAirport">Departure Airport:</label>
-                <input type="text" name="Departure Airport" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="departureAirport" placeholder="" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="departureDate">Departure Date:</label>
-                <input type="date" name="Departure date" placeholder="" onBlur={changeHandler}/>
+                <input type="datetime-local" name="departureDate" placeholder="" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalAirport">Arrival Airport:</label>
-                <input type="text" name="Arrival Airport" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="arrivalAirport" placeholder="" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalDate">Arrival Date:</label>
-                <input type="date" name="Arrival Date" placeholder="" onBlur={changeHandler}/>
+                <input type="datetime-local" name="arrivalDate" placeholder="" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="currentPassengerCount">Current # of Passengers:</label>
-                <input type="text" name="Current Count" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="currentPassengerCount" placeholder="" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="passengerCapacity">Passenger Capacity:</label>
-                <input type="text" name="Capacity" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="passengerCapacity" placeholder="" onBlur={changeHandler}/>
             </div>
-        </section>
+            {/* {error message will appear if something is wrong with validator} */}
+            {errorMessage && (
+              <div>
+                <p className="error-text">{errorMessage}</p>
+              </div>
+            )}
+            <button className="form-row" type="submit">Submit</button>
+        </form>
     );
 }
 
-export default flightSubmitForm;
+export default FlightSubmitForm;
