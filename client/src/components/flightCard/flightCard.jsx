@@ -19,6 +19,7 @@ function FlightCard(props) {
                     Currently carrying {props.pCount} out {props.pMax} seats.
                 </li>
             </ul>
+            {/* {add edit button and delete button} */}
         </div>
     )
 }

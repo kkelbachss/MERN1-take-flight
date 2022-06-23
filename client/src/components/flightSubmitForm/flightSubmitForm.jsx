@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
-import {validateFlightNum} from '../../utils/validators';
+import {
+    validateFlightNum,
+    validateAirport, 
+    validateFlightTimes, 
+    validatePassengerCap } from '../../utils/validators';
 
 function FlightSubmitForm() {
     //states for the form and error section in form
@@ -33,21 +37,25 @@ function FlightSubmitForm() {
     // set validators for time as well
     // i wanted this to wanr the user of the requirements of each parameter but its acting up in react
     function changeHandler(e) {
-        if (e.target.name === 'flightNumber') {
-        const isValid = validateFlightNum(e.target.value);
-        if (!isValid) {
-            setErrorMessage('Your flight # is invalid.');
+        if (e.target.name === "departureDate" && formState.arrivalDate !== '') {
+            let validFT1 = validateFlightTimes(e.target.value, formState.arrivalDate);
+            setErrorMessage(validFT1);
+        } else if (e.target.name === "arrivalDate" && formState.departureDate !== '') {
+            let validFT2 = validateFlightTimes(formState.departureDate, e.target.value);
+            setErrorMessage(validFT2);
+        } else if (e.target.name === 'flightNumber') {
+            let validFN = validateFlightNum(e.target.value);
+            setErrorMessage(validFN);
+        } else if (e.target.name === 'departureAirport' || e.target.name === "arrivalAirport") {
+            let validA = validateAirport(e.target.value)
+            setErrorMessage(validA);
+        } else if (e.target.name === "currentPassengerCount" && formState.passengerCapacity) {
+            let validP1 = validatePassengerCap(e.target.value, formState.passengerCapacity)
+            setErrorMessage(validP1);
+        } else if (e.target.name === "passengerCapacity" && formState.currentPassengerCount) {
+            let validP2 = validatePassengerCap(formState.currentPassengerCount, e.target.value)
+            setErrorMessage(validP2);
         } else {
-            setErrorMessage('');
-        }
-        } else {
-        if (!e.target.value.length) {
-            setErrorMessage(`${e.target.name} is required.`);
-        } else {
-            setErrorMessage('');
-        }
-        }
-        if (!errorMessage) {
             setFormState({ ...formState, [e.target.name]: e.target.value });
             console.log(formState);
         }

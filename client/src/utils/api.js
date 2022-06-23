@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default {
+const api = {
 
     getFlights: function() {
         return axios.get("/flights/");
@@ -20,3 +20,5 @@ export default {
     }
 
 }
+
+export default api;
