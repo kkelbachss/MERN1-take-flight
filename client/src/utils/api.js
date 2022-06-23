@@ -6,7 +6,7 @@ export default {
         return axios.get("/flights/");
     },
     getFlight: function(id) {
-        return axios.get("/flight/"+id);
+        return axios.get("/flights/"+id);
     },
     //might have to tweak this on the back to take data
     createFlight: function(data) {
