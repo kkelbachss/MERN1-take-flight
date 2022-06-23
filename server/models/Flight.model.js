@@ -30,7 +30,7 @@ const flightSchema = new Schema({
     //Departure DATE
     departureDate: {
         type: Date,
-        
+        required: true
     },
 
     // //Departure TIME
@@ -46,7 +46,7 @@ const flightSchema = new Schema({
     //Arrival DATE
     arrivalDate: {
         type: Date,
-        
+        required: true
     },
 
     // //Arrival TIME
@@ -57,6 +57,7 @@ const flightSchema = new Schema({
     //Current Passenger COUNT
     currentPassengerCount:{
         type: Number
+        
     },
     //Passenger LIMIT
     passengerCapacity: {

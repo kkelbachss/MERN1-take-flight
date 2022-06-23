@@ -8,9 +8,10 @@ const app = express();
 //PORT hidden in .env
 const PORT = process.env.PORT || 3001;
 
+app.use(cors());
 app.use(express.json());
 app.use(require('./routes'));
-app.use(cors());
+
 //mongoose connection
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true, 
