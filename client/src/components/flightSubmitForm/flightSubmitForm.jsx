@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
 import {
-    validateFlightNum,
-    validateAirport, 
-    validateFlightTimes, 
-    validatePassengerCap } from '../../utils/validators';
+    validatorSwitch } from '../../utils/validators';
 
 function FlightSubmitForm() {
     //states for the form and error section in form
@@ -16,8 +13,8 @@ function FlightSubmitForm() {
             departureDate: '',
             arrivalAirport: '',
             arrivalDate: '',
-            currentPassengerCount: null,
-            passengerCapacity: null
+            currentPassengerCount: 0,
+            passengerCapacity: 0
         });
    
     const [errorMessage, setErrorMessage] = useState('');
@@ -25,12 +22,12 @@ function FlightSubmitForm() {
     // api call to post
     async function submitHandler(e) {
         e.preventDefault();
-        try {
-            const check = await api.getFlightsByName(formState.flightNumber);
-            console.log(check)
-        } catch(err) {
+        // try {
+        //     const check = await api.getFlightsByName(formState.flightNumber);
+        //     console.log(check)
+        // } catch(err) {
 
-        }
+        // }
         // try {
         //     await api.createFlight(formState);
         // } catch (err) {
@@ -42,29 +39,13 @@ function FlightSubmitForm() {
     // set validators for time as well
     // i wanted this to wanr the user of the requirements of each parameter but its acting up in react
     function changeHandler(e) {
-        if (e.target.name === "departureDate" && formState.arrivalDate !== '') {
-            let validFT1 = validateFlightTimes(e.target.value, formState.arrivalDate);
-            setErrorMessage(validFT1);
-        } else if (e.target.name === "arrivalDate" && formState.departureDate !== '') {
-            let validFT2 = validateFlightTimes(formState.departureDate, e.target.value);
-            setErrorMessage(validFT2);
-        } else if (e.target.name === 'flightNumber') {
-            let validFN = validateFlightNum(e.target.value);
-            setErrorMessage(validFN);
+        //change all the setErrorMessages to have conditionals
+        if (validatorSwitch(e,formState)) {
+            setFormState({...formState, [e.target.name]: e.target.value});
             
-        } else if (e.target.name === 'departureAirport' || e.target.name === "arrivalAirport") {
-            let validA = validateAirport(e.target.value)
-            setErrorMessage(validA);
-        } else if (e.target.name === "currentPassengerCount" && formState.passengerCapacity) {
-            let validP1 = validatePassengerCap(e.target.value, formState.passengerCapacity)
-            setErrorMessage(validP1);
-        } else if (e.target.name === "passengerCapacity" && formState.currentPassengerCount) {
-            let validP2 = validatePassengerCap(formState.currentPassengerCount, e.target.value)
-            setErrorMessage(validP2);
-        } else {
-            setFormState({ ...formState, [e.target.name]: e.target.value });
-            console.log(formState);
         }
+        console.log(formState);
+
     };
 
     // a beefy submit form
