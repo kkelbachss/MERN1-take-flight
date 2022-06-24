@@ -15,10 +15,6 @@ function FlightCard() {
       };
       fetchData();
     }, [])
-
-    function editFlightForm(data) {
-
-    }
      
     return (
         <>
@@ -39,7 +35,7 @@ function FlightCard() {
                         Currently carrying {flight.currentPassengerCount} out {flight.passengerCapacity} seats.
                     </li>
                     
-                    <Button variant="primary" onClick={editFlightForm(flight)}>Edit Flight {flight.flightNumber}</Button>
+                    <Button variant="primary">Edit Flight {flight.flightNumber}</Button>
                 </Card.Body>
             </Card> 
             ))} 

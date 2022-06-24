@@ -18,6 +18,16 @@ router.get('/', async (req,res)=>{
     }
 })
 
+router.get('/check/:id', async (req,res)=>{
+    try {
+        console.log("...checking this flight number...");
+        const flightsByName = await getFlightsByName(req.body.id)
+        res.json(flightsByName);
+    } catch (err) {
+        console.error(err);
+    }
+})
+
 router.post('/', async (req,res) => {
     try {
         console.log("...posting flight...");

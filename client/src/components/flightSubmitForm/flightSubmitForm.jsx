@@ -16,8 +16,8 @@ function FlightSubmitForm() {
             departureDate: '',
             arrivalAirport: '',
             arrivalDate: '',
-            currentPassengerCount: 0,
-            passengerCapacity: 0
+            currentPassengerCount: null,
+            passengerCapacity: null
         });
    
     const [errorMessage, setErrorMessage] = useState('');
@@ -25,12 +25,17 @@ function FlightSubmitForm() {
     // api call to post
     async function submitHandler(e) {
         e.preventDefault();
-        console.log('SubmitFlight', formState);
         try {
-            await api.createFlight(formState);
-        } catch (err) {
-            console.error(err);
+            const check = await api.getFlightsByName(formState.flightNumber);
+            console.log(check)
+        } catch(err) {
+
         }
+        // try {
+        //     await api.createFlight(formState);
+        // } catch (err) {
+        //     console.error(err);
+        // }
     }
 
     // updates error section and formState
@@ -71,31 +76,31 @@ function FlightSubmitForm() {
             </div>
             <div className="form-row">
                 <label className="form-title" htmlFor="flightNumber">Flight#:</label>
-                <input type="text" name="flightNumber" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="flightNumber" onBlur={changeHandler}/>
             </div>
             <div className="form-row">    
                 <label className="form-title" htmlFor="departureAirport">Departure Airport:</label>
-                <input type="text" name="departureAirport" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="departureAirport" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="departureDate">Departure Date:</label>
-                <input type="datetime-local" name="departureDate" placeholder="" onBlur={changeHandler}/>
+                <input type="datetime-local" name="departureDate" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalAirport">Arrival Airport:</label>
-                <input type="text" name="arrivalAirport" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="arrivalAirport" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalDate">Arrival Date:</label>
-                <input type="datetime-local" name="arrivalDate" placeholder="" onBlur={changeHandler}/>
+                <input type="datetime-local" name="arrivalDate" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="currentPassengerCount">Current # of Passengers:</label>
-                <input type="text" name="currentPassengerCount" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="currentPassengerCount" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="passengerCapacity">Passenger Capacity:</label>
-                <input type="text" name="passengerCapacity" placeholder="" onBlur={changeHandler}/>
+                <input type="text" name="passengerCapacity" onBlur={changeHandler}/>
             </div>
             {/* {error message will appear if something is wrong with validator} */}
             {errorMessage && (
