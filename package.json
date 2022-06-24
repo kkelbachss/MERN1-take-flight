@@ -1,0 +1,45 @@
+{
+  "name": "mern1",
+  "version": "1.0.0",
+  "description": "A Full Stack Flight Mgmt App",
+  "main": "server/server.js",
+  "dependencies": {
+    "ansi-regex": "^5.0.1",
+    "ansi-styles": "^4.3.0",
+    "concurrently": "^7.2.2",
+    "chalk": "^4.1.2",
+    "color-name": "^1.1.4",
+    "cliui": "^7.0.4",
+    "color-convert": "^2.0.1",
+    "emoji-regex": "^8.0.0",
+    "get-caller-file": "^2.0.5",
+    "date-fns": "^2.28.0",
+    "has-flag": "^4.0.0",
+    "is-fullwidth-code-point": "^3.0.0",
+    "escalade": "^3.1.1",
+    "rxjs": "^7.5.5",
+    "lodash": "^4.17.21",
+    "require-directory": "^2.1.1",
+    "shell-quote": "^1.7.3",
+    "spawn-command": "^0.0.2-1",
+    "string-width": "^4.2.3",
+    "supports-color": "^8.1.1",
+    "tslib": "^2.4.0",
+    "strip-ansi": "^6.0.1",
+    "wrap-ansi": "^7.0.0",
+    "tree-kill": "^1.2.2",
+    "y18n": "^5.0.8",
+    "yargs-parser": "^21.0.1",
+    "yargs": "^17.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-2:kkelbachss/MERN1-take-flight.git"
+  },
+  "author": "Kevin Kelbach",
+  "license": "ISC"
+}

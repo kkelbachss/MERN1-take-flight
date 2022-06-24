@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const figlet = require('figlet');
 
 const app = express();
 //PORT hidden in .env
@@ -18,6 +19,8 @@ app.use(cors());
 //     next();
 // })
 
+
+figlet.text('TakeFlight', function (err, data){console.log(data)})
 //mongoose connection
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true, 

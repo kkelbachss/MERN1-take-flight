@@ -44,8 +44,8 @@ export function validateFlightTimesWithDb(currentFlightStart, currentFlightEnd, 
 }
 
 export function validateAirport(name){
-        if (name.length>3) {
-                return "Invalid Airport";
+        if (name.length !== 3) {
+                return "Please enter a valid 3 Character Airport";
         } else {
                 return ;
         }

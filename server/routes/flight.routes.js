@@ -4,7 +4,8 @@ const {
     findAllFlights, 
     getFlightById, 
     updateFlight, 
-    deleteFlight
+    deleteFlight,
+    getFlightsByName
 } = require('../controllers/flight.controller');
 
 router.get('/', async (req,res)=>{

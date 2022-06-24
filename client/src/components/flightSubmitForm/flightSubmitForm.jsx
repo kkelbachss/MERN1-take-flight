@@ -46,6 +46,7 @@ function FlightSubmitForm() {
         } else if (e.target.name === 'flightNumber') {
             let validFN = validateFlightNum(e.target.value);
             setErrorMessage(validFN);
+            
         } else if (e.target.name === 'departureAirport' || e.target.name === "arrivalAirport") {
             let validA = validateAirport(e.target.value)
             setErrorMessage(validA);

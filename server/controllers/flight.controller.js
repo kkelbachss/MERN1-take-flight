@@ -1,3 +1,4 @@
+const { find } = require('../models/Flight.model');
 const Flight = require('../models/Flight.model');
 
 //GET all flights
@@ -19,6 +20,16 @@ const getFlightById = async (id) => {
     } catch (err) {
         console.error(err);
         throw {status:400, message:err}
+    }
+}
+
+//GET many flights by name
+const getFlightsByName = async(flightName) => {
+    try {
+        const flightsByName = await Flight.find({name:flightName});
+        return flightsByName;
+    } catch (err) {
+        console.error(err);
     }
 }
 
@@ -70,5 +81,6 @@ module.exports = {
      findAllFlights, 
      getFlightById, 
      updateFlight, 
-     deleteFlight
+     deleteFlight,
+     getFlightsByName
     };

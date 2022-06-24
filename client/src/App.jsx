@@ -1,41 +1,17 @@
-import './App.css';
-import {useState, useEffect} from 'react';
-import SubmitFlightForm from './components/FlightSubmitForm/FlightSubmitForm';
-import FlightCard from './components/FlightCard/FlightCard';
-import api from './utils/api';
+// import './App.css';
+import React from 'react';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+
+
 
 function App() {
-  const [flightList, setFlightList] = useState([]);
 
-  useEffect(()=>{
-    async function fetchData() {
-      
-      const res = await api.getFlights()
-      console.log(res.data);
-      setFlightList(res.data);
-    };
-    fetchData();
-  },[])
 
   return (
     <div className="App">
       <header className="App-header">
-
-        <SubmitFlightForm />
-
-        { flightList.map((flight)=>(
-         <FlightCard 
-         id = {flight._id}
-         flightNum = {flight.flightNumber}
-         dAirport = {flight.departureAirport}
-         dDate = {flight.departureDate}
-         aAirport = {flight.arrivalAirport}
-         aDate = {flight.arrivalDate}
-         pCount = {flight.currentPassengerCount}
-         pMax = {flight.passengerCapacity}
-         /> 
-        ))}  
-        
+        <Home />
       </header>
     </div>
   );

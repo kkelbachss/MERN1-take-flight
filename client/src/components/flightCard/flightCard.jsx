@@ -1,26 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../utils/api';
+import {Button, Card} from 'react-bootstrap';
 
-function FlightCard(props) {
 
+function FlightCard() {
+    const [flightList, setFlightList] = useState([]);
 
+    useEffect(()=>{
+      async function fetchData() {
+        
+        const res = await api.getFlights()
+        console.log(res.data);
+        setFlightList(res.data);
+      };
+      fetchData();
+    }, [])
+
+    function editFlightForm(data) {
+
+    }
+     
     return (
-        <div className="flightCard" key={props.id}>
-            <ul>
-                <li key={props.flightNum}>
-                    Flight Number: <strong>{props.flightNum}</strong>
-                </li>
-                <li key={props.dAirport}>
-                    Departing from {props.dAirport} on {props.dDate}.
-                </li>
-                <li key={props.aAirport}>
-                    Arriving at {props.aAirport} on {props.aDate}.
-                </li>
-                <li key={props.aDate}>
-                    Currently carrying {props.pCount} out {props.pMax} seats.
-                </li>
-            </ul>
-            {/* {add edit button and delete button} */}
-        </div>
+        <>
+            { flightList.map((flight)=>(
+            <Card style={{ width: '18rem' }} key={flight._id}>
+                <Card.Body>
+                    
+                    <Card.Title key={flight.flightNumber}>
+                        Flight Number: <strong>{flight.flightNumber}</strong>
+                    </Card.Title>
+                    <li key={flight.departureAirport}>
+                        Departing from {flight.departureAirport} on {flight.departureDate}.
+                    </li>
+                    <li key={flight.arrivalAirport}>
+                        Arriving at {flight.arrivalAirport} on {flight.arrivalDate}.
+                    </li>
+                    <li key={flight.arrivalDate}>
+                        Currently carrying {flight.currentPassengerCount} out {flight.passengerCapacity} seats.
+                    </li>
+                    
+                    <Button variant="primary" onClick={editFlightForm(flight)}>Edit Flight {flight.flightNumber}</Button>
+                </Card.Body>
+            </Card> 
+            ))} 
+        </>
     )
 }
 
