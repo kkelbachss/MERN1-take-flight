@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
-import {
-    validatorSwitch } from '../../utils/validators';
+import { checkFlights } from '../../utils/helpers';
+import { validatorSwitch } from '../../utils/validators';
 
 function FlightSubmitForm() {
     //states for the form and error section in form
@@ -25,18 +25,24 @@ function FlightSubmitForm() {
     // api call to post
     async function submitHandler(e) {
         e.preventDefault();
-        try {
-            console.log(formState.flightNumber);
-            const check = await api.getFlightsByName(formState.flightNumber);
-            console.log(check)
-        } catch(err) {
-            console.error(err);
-        }
+        
+        await checkFlights(formState)
+        .then((res)=> {
+           if (res) {
+            console.log(formState);
+            api.createFlight(formState); 
+           } else {
+            console.log("ope");
+           }
+        });
+        
         // try {
-        //     await api.createFlight(formState);
+        //     console.log(formState);
+        //     api.createFlight(formState);
         // } catch (err) {
         //     console.error(err);
         // }
+        
     }
 
     // updates error section and formState
@@ -45,11 +51,8 @@ function FlightSubmitForm() {
     function changeHandler(e) {
         //change all the setErrorMessages to have conditionals
         if (validatorSwitch(e,formState)) {
-            setFormState({...formState, [e.target.name]: e.target.value});
-            
+            setFormState({...formState, [e.target.name]: e.target.value});    
         }
-        console.log(formState);
-
     };
 
     // a beefy submit form
@@ -81,11 +84,11 @@ function FlightSubmitForm() {
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="currentPassengerCount">Current # of Passengers:</label>
-                <input type="text" name="currentPassengerCount" onBlur={changeHandler}/>
+                <input type="number" min="0" name="currentPassengerCount" onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="passengerCapacity">Passenger Capacity:</label>
-                <input type="text" name="passengerCapacity" onBlur={changeHandler}/>
+                <input type="number" min="0" name="passengerCapacity" onBlur={changeHandler}/>
             </div>
             {/* {error message will appear if something is wrong with validator} */}
             {errorMessage && (

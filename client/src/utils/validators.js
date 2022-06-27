@@ -25,9 +25,20 @@ export function validateFlightTimesWithDb(currentFlightStart, currentFlightEnd, 
         let rfs = new Date(requestedFlightStart).getTime();
         let rfe = new Date(requestedFlightEnd).getTime();
 
-        if (rfs < cfe) {
+        // console.log("cfs: "+ cfs);
+        // console.log("cfe: "+ cfe);
+        // console.log("rfs: "+ rfs);
+        // console.log("rfe: "+ rfe);
+        // console.log("rfs<cfe: "+(rfs<cfe));
+        // console.log("cfs<rfs: "+(cfs<rfs));
+        // console.log( "(cfs < rfs) && (rfs < cfe): "+((cfs < rfs) && (rfs < cfe) ));
+        // console.log("( cfs < rfe )&&( rfe < cfe ): "+(( cfs < rfe )&&( rfe < cfe )));
+        // console.log("(( cfs < rfs )&&( rfs < cfe )) ||(( cfs < rfe )&&( rfe < cfe )): "+((( cfs < rfs )&&( rfs < cfe )) ||(( cfs < rfe )&&( rfe < cfe ))))
+        // console.log("(rfs<cfs)&&(cfe<rfe): "+((rfs<cfs)&&(cfe<rfe)));
+
+        if ((( cfs < rfs )&&( rfs < cfe )) || (( cfs < rfe )&&( rfe < cfe ))) {
                 return false
-        } else if (rfe > cfs) {
+        } else if (( rfs < cfs ) && ( cfe < rfe )) {
                 return false
         } else {
                 return true;
