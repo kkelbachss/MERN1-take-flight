@@ -18,16 +18,20 @@ function FlightSubmitForm() {
         });
    
     const [errorMessage, setErrorMessage] = useState('');
+    const [flightNum, setFlightNum] = useState('');
+    const [dAirport, setDAirport] = useState('');
+    const [aAirport, setAAirport] = useState('');
 
     // api call to post
     async function submitHandler(e) {
         e.preventDefault();
-        // try {
-        //     const check = await api.getFlightsByName(formState.flightNumber);
-        //     console.log(check)
-        // } catch(err) {
-
-        // }
+        try {
+            console.log(formState.flightNumber);
+            const check = await api.getFlightsByName(formState.flightNumber);
+            console.log(check)
+        } catch(err) {
+            console.error(err);
+        }
         // try {
         //     await api.createFlight(formState);
         // } catch (err) {
@@ -56,12 +60,12 @@ function FlightSubmitForm() {
                 <h2>Submit Flight information</h2>
             </div>
             <div className="form-row">
-                <label className="form-title" htmlFor="flightNumber">Flight#:</label>
-                <input type="text" name="flightNumber" onBlur={changeHandler}/>
+                <label className="form-title" htmlFor="flightNumber" >Flight#:</label>
+                <input type="text" name="flightNumber" value={flightNum} onChange={event => {setFlightNum(event.target.value.toUpperCase())}} onBlur={changeHandler} />
             </div>
             <div className="form-row">    
                 <label className="form-title" htmlFor="departureAirport">Departure Airport:</label>
-                <input type="text" name="departureAirport" onBlur={changeHandler}/>
+                <input type="text" name="departureAirport" value={dAirport} onChange={event => {setDAirport(event.target.value.toUpperCase())}} onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="departureDate">Departure Date:</label>
@@ -69,7 +73,7 @@ function FlightSubmitForm() {
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalAirport">Arrival Airport:</label>
-                <input type="text" name="arrivalAirport" onBlur={changeHandler}/>
+                <input type="text" name="arrivalAirport" value={aAirport} onChange={event => {setAAirport(event.target.value.toUpperCase())}}onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalDate">Arrival Date:</label>

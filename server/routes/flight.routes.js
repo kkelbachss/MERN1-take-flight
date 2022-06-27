@@ -20,8 +20,8 @@ router.get('/', async (req,res)=>{
 
 router.get('/check/:id', async (req,res)=>{
     try {
-        console.log("...checking this flight number...");
-        const flightsByName = await getFlightsByName(req.body.id)
+        console.log("...checking flight number "+req.params.id+"...");
+        const flightsByName = await getFlightsByName(req.params.id)
         res.json(flightsByName);
     } catch (err) {
         console.error(err);

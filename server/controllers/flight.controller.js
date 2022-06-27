@@ -26,7 +26,7 @@ const getFlightById = async (id) => {
 //GET many flights by name
 const getFlightsByName = async(flightName) => {
     try {
-        const flightsByName = await Flight.find({name:flightName});
+        const flightsByName = await Flight.find({flightNumber: flightName});
         return flightsByName;
     } catch (err) {
         console.error(err);
