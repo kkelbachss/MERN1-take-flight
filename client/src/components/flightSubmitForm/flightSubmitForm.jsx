@@ -15,12 +15,14 @@ function FlightSubmitForm() {
             arrivalDate: '',
             currentPassengerCount: 0,
             passengerCapacity: 0
-        });
+        }
+    );
    
+    //     //a little too complicated
     const [errorMessage, setErrorMessage] = useState('');
-    const [flightNum, setFlightNum] = useState('');
-    const [dAirport, setDAirport] = useState('');
-    const [aAirport, setAAirport] = useState('');
+    // const [flightNum, setFlightNum] = useState('');
+    // const [dAirport, setDAirport] = useState('');
+    // const [aAirport, setAAirport] = useState('');
 
     // api call to post
     async function submitHandler(e) {
@@ -54,7 +56,10 @@ function FlightSubmitForm() {
         if (validatorSwitch(e,formState)) {
             setFormState({...formState, [e.target.name]: e.target.value});
             console.log(formState)    
-        }
+        } 
+        // else {
+        //     setFormState({...formState, [e.target.name]: null });
+        // }
     };
 
     // a beefy submit form
@@ -66,31 +71,31 @@ function FlightSubmitForm() {
             </div>
             <div className="form-row">
                 <label className="form-title" htmlFor="flightNumber" >Flight#:</label>
-                <input type="text" name="flightNumber" value={flightNum} onChange={event => {setFlightNum(event.target.value.toUpperCase())}} onBlur={changeHandler} />
+                <input type="text" name="flightNumber" value={formState.flightNumber} onChange={event => {setFormState({...formState, ["flightNumber"]:event.target.value.toUpperCase()})}} onBlur={changeHandler} />
             </div>
             <div className="form-row">    
                 <label className="form-title" htmlFor="departureAirport">Departure Airport:</label>
-                <input type="text" name="departureAirport" value={dAirport} onChange={event => {setDAirport(event.target.value.toUpperCase())}} onBlur={changeHandler}/>
+                <input type="text" name="departureAirport" value={formState.departureAirport} onChange={event => {setFormState({...formState, ["departureAirport"]:event.target.value.toUpperCase()})}} onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="departureDate">Departure Date:</label>
-                <input type="datetime-local" name="departureDate" onBlur={changeHandler}/>
+                <input type="datetime-local" name="departureDate" value={formState.departureDate} onChange={event => {setFormState({...formState, ["departureDate"]:event.target.value})}} onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalAirport">Arrival Airport:</label>
-                <input type="text" name="arrivalAirport" value={aAirport} onChange={event => {setAAirport(event.target.value.toUpperCase())}}onBlur={changeHandler}/>
+                <input type="text" name="arrivalAirport" value={formState.arrivalAirport} onChange={event => {setFormState({...formState, ["arrivalAirport"]:event.target.value.toUpperCase()})}} onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="arrivalDate">Arrival Date:</label>
-                <input type="datetime-local" name="arrivalDate" onBlur={changeHandler}/>
+                <input type="datetime-local" name="arrivalDate" value={formState.arrivalDate} onChange={event => {setFormState({...formState, ["arrivalDate"]:event.target.value})}} onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="currentPassengerCount">Current # of Passengers:</label>
-                <input type="number" min="0" name="currentPassengerCount" onBlur={changeHandler}/>
+                <input type="number" min="0" name="currentPassengerCount" value={formState.currentPassengerCount} onChange={event => {setFormState({...formState, ["currentPassengerCount"]:event.target.value})}} onBlur={changeHandler}/>
             </div>
             <div className="form-row">     
                 <label className="form-title" htmlFor="passengerCapacity">Passenger Capacity:</label>
-                <input type="number" min="0" name="passengerCapacity" onBlur={changeHandler}/>
+                <input type="number" min="0" name="passengerCapacity" value={formState.passengerCapacity} onChange={event => {setFormState({...formState, ["passengerCapacity"]:event.target.value})}} onBlur={changeHandler}/>
             </div>
             {/* {error message will appear if something is wrong with validator} */}
             {errorMessage && (
