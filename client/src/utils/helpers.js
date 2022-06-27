@@ -2,7 +2,7 @@ import api from './api';
 import {validateFlightTimesWithDb} from './validators';
 
 export function dateFormatter(date) {
-    return new Date(date).toString();
+    return new Date(date).toUTCString();
 }
 
 export async function checkFlights(formState) {

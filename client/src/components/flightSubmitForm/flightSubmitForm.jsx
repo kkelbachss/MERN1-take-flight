@@ -50,8 +50,10 @@ function FlightSubmitForm() {
     // i wanted this to wanr the user of the requirements of each parameter but its acting up in react
     function changeHandler(e) {
         //change all the setErrorMessages to have conditionals
+        console.log("validator: "+validatorSwitch(e,formState))
         if (validatorSwitch(e,formState)) {
-            setFormState({...formState, [e.target.name]: e.target.value});    
+            setFormState({...formState, [e.target.name]: e.target.value});
+            console.log(formState)    
         }
     };
 

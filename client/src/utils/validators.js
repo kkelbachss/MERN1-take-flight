@@ -9,13 +9,15 @@ export function validateFlightNum(fNum) {
 }
 
 export function validatePassengerCap(pCount, pMax) {
-        return pCount < pMax;
+        let pC = parseInt(pCount);
+        let pM = parseInt(pMax);
+        return pC <= pM;
 }
 
 export function validateFlightTimes(reqFlightStart, reqFlightEnd) {
         let rfs = new Date(reqFlightStart).getTime();
         let rfe = new Date(reqFlightEnd).getTime();
-
+        // console.log("rfe>rfs: "+ (rfe>rfs));
         return rfe > rfs;
 }
 
