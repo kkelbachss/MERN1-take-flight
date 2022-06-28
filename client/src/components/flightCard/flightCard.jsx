@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Card, Col, Row} from 'react-bootstrap';
+import {Button, Card, Col, Row, ListGroup, ListGroupItem} from 'react-bootstrap';
 import { dateFormatter } from '../../utils/helpers';
 
 
@@ -30,27 +30,29 @@ function FlightCard() {
     return (
         <>
             { flightList.map((flight)=>(
-                <Col xs={12} sm={6}  lg={4} xxl={3} key={flight._id}>
-                    <Card fluid='lg' style={{ width: '20rem', margin: '5px', fontSize: '30px'}} key={flight._id}>
+                <Col xs={12} sm={12}  lg={6} xxl={4} key={flight._id}>
+                    <Card fluid='lg' style={{ width: '20rem', margin: '5px', fontSize: '20px'}} key={flight._id}>
                         <Card.Body >
                             <Col>
                             <Row>
                                 <Card.Title style={{fontSize:'32px'}} key={flight.flightNumber}>
-                                    Flight #: {flight.flightNumber}
+                                    Flight#: {flight.flightNumber}
                                 </Card.Title>
                             </Row>
-                            <Row key={flight.departureAirport}>
-                                Departing from {flight.departureAirport} on {dateFormatter(flight.departureDate)}.
-                            </Row>
-                            <Row key={flight.arrivalAirport}>
-                                Arriving at {flight.arrivalAirport} on {dateFormatter(flight.arrivalDate)}.
-                            </Row>
-                            <Row key={flight.arrivalDate}>
-                                Currently carrying {flight.currentPassengerCount} out {flight.passengerCapacity} seats.
-                            </Row>
+                            <ListGroup>
+                                <ListGroupItem className="list-group-flush" key={flight.departureAirport}>
+                                    Departing from {flight.departureAirport} on {dateFormatter(flight.departureDate)}.
+                                </ListGroupItem>
+                                <ListGroupItem className="list-group-flush" key={flight.arrivalAirport}>
+                                    Arriving at {flight.arrivalAirport} on {dateFormatter(flight.arrivalDate)}.
+                                </ListGroupItem>
+                                <ListGroupItem className="list-group-flush" key={flight.arrivalDate}>
+                                    Currently carrying {flight.currentPassengerCount} out {flight.passengerCapacity} seats.
+                                </ListGroupItem>
+                            </ListGroup>
                             </Col>
-                            <Button variant="primary">Edit Flight {flight.flightNumber}</Button>
-                            <Button variant="primary" onClick={()=>{ deleteHandler(flight._id) }}>DELETE</Button>
+                            <Button variant="primary" style={{ margin: '5px'}}>Edit Flight {flight.flightNumber}</Button>
+                            <Button variant="primary" style={{ margin: '5px'}} onClick={()=>{ deleteHandler(flight._id) }}>DELETE</Button>
                         </Card.Body>
                     </Card> 
                 </Col>

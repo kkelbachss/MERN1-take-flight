@@ -41,7 +41,7 @@ router.post('/', async (req,res) => {
 
 router.get('/:id', async (req,res) => {
     try {
-        console.log('...getting flight by id...');
+        console.log('...getting flight by id '+req.params.id+'...');
         const flight = await getFlightById(req.params.id);
         res.json(flight);
     } catch (err) {
@@ -51,8 +51,8 @@ router.get('/:id', async (req,res) => {
 
 router.put('/:id', async(req,res) => {
     try {
-        console.log('...finding one and updating...')
-        const newFlight = await updateFlight(req.body.id, req.body)
+        console.log('...finding '+req.params.id+' and updating...')
+        const newFlight = await updateFlight(req.params.id, req.params)
         res.json(newFlight);
     } catch (err) {
         console.error(err);
@@ -61,9 +61,9 @@ router.put('/:id', async(req,res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        console.log('...finding one and deleting...');
-        const byeFlight = await deleteFlight(req.body.id);
-        res.json(`Flight Number: ${req.body.id} deleted...`)
+        console.log('...finding '+req.params.id+' and deleting...');
+        const byeFlight = await deleteFlight(req.params.id);
+        res.json(`Flight Number: ${req.params.id} deleted...`)
     } catch (err) {
         console.error(err);
     }
