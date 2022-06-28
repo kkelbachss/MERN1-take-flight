@@ -2,27 +2,43 @@ import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Card, Col, Row, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {useDispatch, useSelector} from 'react-redux';
 import { dateFormatter } from '../../utils/helpers';
 
 
 
+
 function FlightCard() {
+    
+    const dispatcher = useDispatch();
     const [flightList, setFlightList] = useState([]);
+    // const [refreshKey, setRefreshKey] = useState(0);
+    // setRefreshKey(load);
+    // console.log(load);
+    // console.log("refresh: "+refreshKey);
+    
+    async function fetchData() {
+    
+    const res = await api.getFlights()
+    console.log(res.data);
+    setFlightList(res.data);
+    
+    };
 
+    // find whether to reset
+    let load = useSelector(store => store.refresh);
+    // console.log(load);
     useEffect(()=>{
-      async function fetchData() {
-        
-        const res = await api.getFlights()
-        console.log(res.data);
-        setFlightList(res.data);
-      };
-      fetchData();
-    },[])
-
+        fetchData();
+    },[load])
+    
     async function deleteHandler(id) {
-        const res = await api.deleteFlight(id)
+        await api.deleteFlight(id)
         console.log("...flight "+id+" deleted...")
-        
+
+        // this will update the store and refresh the page
+        load = new Date().getTime();
+        dispatcher({type: 'SET_REFRESH', payload: load});
     }
      
     //need an edit button to conditionally render submit form over card
@@ -30,8 +46,8 @@ function FlightCard() {
     return (
         <>
             { flightList.map((flight)=>(
-                <Col xs={12} sm={12}  lg={6} xxl={4} key={flight._id}>
-                    <Card fluid='lg' style={{ width: '20rem', margin: '5px', fontSize: '20px'}} key={flight._id}>
+                <Col md={12} lg={12} xxl={6} xxxl={4} key={flight._id}>
+                    <Card fluid='lg' style={{ width: '40rem', margin: '5px', fontSize: '20px'}} key={flight._id}>
                         <Card.Body >
                             <Col>
                             <Row>
@@ -52,7 +68,7 @@ function FlightCard() {
                             </ListGroup>
                             </Col>
                             <Button variant="primary" style={{ margin: '5px'}}>Edit Flight {flight.flightNumber}</Button>
-                            <Button variant="primary" style={{ margin: '5px'}} onClick={()=>{ deleteHandler(flight._id) }}>DELETE</Button>
+                            <Button variant="primary" style={{ margin: '5px'}} onClick={()=>{ deleteHandler(flight._id,load) }}>DELETE</Button>
                         </Card.Body>
                     </Card> 
                 </Col>

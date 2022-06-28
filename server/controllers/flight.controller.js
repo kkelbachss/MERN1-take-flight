@@ -68,7 +68,7 @@ const updateFlight = async (id, body) => {
 //DELETE one flight
 const deleteFlight = async (id) => {
     try {
-        const flight = await Flight.findOneAndDelete(id);
+        const flight = await Flight.findOneAndDelete({"_id":id});
         return flight;
     } catch (err) {
         console.error(err);
