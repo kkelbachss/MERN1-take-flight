@@ -5,6 +5,10 @@ export function dateFormatter(date) {
     return new Date(date).toUTCString();
 }
 
+export function editDateFormatter (date) {
+    return new Date(date).toISOString().split('.')[0];
+};
+
 export async function checkFlights(formState) {
     
         try {

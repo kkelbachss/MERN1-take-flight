@@ -69,7 +69,8 @@ const flightSchema = new Schema({
     timestamps: true,
     toJSON:{
         getters: true
-    }
+    },
+    id: false
 });
 
 const Flight = mongoose.model('Flight', flightSchema, 'Flights')

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import api from '../../utils/api';
 import { checkFlights } from '../../utils/helpers';
 import { validatorSwitch } from '../../utils/validators';
@@ -10,9 +10,11 @@ import {Button, Card, ListGroup, ListGroupItem} from 'react-bootstrap';
 
 function FlightSubmitForm() {
     const dispatcher = useDispatch();
+    let flightLoad = useSelector(store => store.flight);
     //states for the form and error section in form
-    const [formState, setFormState] = useState(
+    const [formState, setFormState] = useState(flightLoad ||
         {
+            _id: '',
             flightNumber: '',
             departureAirport: '',
             departureDate: '',
@@ -34,54 +36,52 @@ function FlightSubmitForm() {
     // api call to post
     async function submitHandler(e) {
         e.preventDefault();
-        
-        await checkFlights(formState)
-        .then((res)=> {
-           if (res) {
-                try {
-                    // console.log(formState);
-                    api.createFlight(formState);
-                    setErrorMessage('...posting flight...');
-                    // sending refresh to the store
-                    formState.refresh = new Date().getTime();
-                    dispatcher({type: 'SET_REFRESH', payload: formState.refresh});
-                    
-                    setErrorMessage('...flight posted...');
-                    
-                    //resets formState if successful
-                    setFormState({
-                        flightNumber: '',
-                        departureAirport: '',
-                        departureDate: '',
-                        arrivalAirport: '',
-                        arrivalDate: '',
-                        currentPassengerCount: 0,
-                        passengerCapacity: 0
-                    });
-                } catch (err) { 
-                    console.error(err);
-                    setErrorMessage('...flight not posted...')
-                } 
-           } else {
-            console.log("ope");
-            setErrorMessage('...submission error...')
-           }
-        })
-        
-           
-            
-        
-            // navigate('./', {replace: true});
+        if (formState._id) {
+            try {
+                await api.editflight(formState.id,{...formState});
+                setErrorMessage('... update success ...');
+                // used similar logic here to update flights and flag a refresh
+                formState.refresh = new Date().getTime();
+                dispatcher({type: 'SET_REFRESH', payload: formState.refresh});
 
-        // PUT A CONDITIONAL HERE, IF SUCCESS
-        
-        // try {
-        //     console.log(formState);
-        //     api.createFlight(formState);
-        // } catch (err) {
-        //     console.error(err);
-        // }
-        
+            } catch (err) {
+                console.error(err);
+                setErrorMessage('... update failed ...');
+            }
+        } else {        
+            await checkFlights(formState)
+            .then((res)=> {
+            if (res) {
+                    try {
+                        // console.log(formState);
+                        api.createFlight(formState);
+                        setErrorMessage('...posting flight...');
+                        // sending refresh to the store
+                        formState.refresh = new Date().getTime();
+                        dispatcher({type: 'SET_REFRESH', payload: formState.refresh});
+                        
+                        setErrorMessage('...flight posted...');
+                        
+                        //resets formState if successful
+                        setFormState({
+                            flightNumber: '',
+                            departureAirport: '',
+                            departureDate: '',
+                            arrivalAirport: '',
+                            arrivalDate: '',
+                            currentPassengerCount: 0,
+                            passengerCapacity: 0
+                        });
+                    } catch (err) { 
+                        console.error(err);
+                        setErrorMessage('...flight not posted...')
+                    } 
+            } else {
+                console.log("ope");
+                setErrorMessage('...submission error...')
+            }
+            }) 
+        }       
     }
 
     // updates error section and formState
@@ -105,7 +105,7 @@ function FlightSubmitForm() {
         <Card style={{ width: '20rem', margin: '5px', fontSize: '20px'}}>
             <form id="flightSubmitForm" onSubmit={submitHandler}>
                 <Card.Title style={{fontSize:'32px'}} className="title">
-                    Submit Flight information
+                    Flight information
                 </Card.Title>
                 <ListGroup>
                     <ListGroupItem className="list-group-flush">
@@ -162,7 +162,7 @@ function FlightSubmitForm() {
                 </ListGroup>
                 {/* {error message will appear if something is wrong with validator} */}
                 {errorMessage && (
-                <div>
+                <div className="alert alert-info text-center" role="alert">
                     <p className="error-text">{errorMessage}</p>
                 </div>
                 )}

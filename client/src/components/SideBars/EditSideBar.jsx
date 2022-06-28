@@ -3,21 +3,22 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import FlightSubmitForm from '../FlightSubmitForm/FlightSubmitForm';
 
-function SideBar() {
-  const [show, setShow] = useState(false);
+function EditSideBar() {
+  //set all to true for submitform purposes
+  const [show, setShow] = useState(false); //normally false
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  const handleClose = () => setShow(false); //normally false
+  const handleShow = () => setShow(true); //normally true
+  
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Add Flights
+        Edit Flight
       </Button>
 
       <Offcanvas show={show} onHide={handleClose} backdrop="static">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Take Flight API</Offcanvas.Title>
+          <Offcanvas.Title>Edit Flight</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <FlightSubmitForm />
@@ -27,4 +28,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default EditSideBar;
