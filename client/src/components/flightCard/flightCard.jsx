@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import EditSidebar from '../SideBars/EditSideBar';
 import api from '../../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Card, Col, Row, ListGroup, ListGroupItem} from 'react-bootstrap';

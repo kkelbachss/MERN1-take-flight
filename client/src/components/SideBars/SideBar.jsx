@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import store from'../../store';
 import { useEffect } from 'react';
 
-function AddSideBar() {
+function SideBar() {
   const dispatcher = useDispatch();
   const sideBar = useSelector(store => store.sideBar)
   // console.log("sidebar "+sideBar);
@@ -43,12 +43,12 @@ function AddSideBar() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Add Flights
+        Add New Flight
       </Button>
 
       <Offcanvas show={show} onHide={handleClose} backdrop="static"> 
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Add Flight</Offcanvas.Title>
+          <Offcanvas.Title>Flight Info</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <FlightSubmitForm />
@@ -58,4 +58,4 @@ function AddSideBar() {
   );
 }
 
-export default AddSideBar;
+export default SideBar;
