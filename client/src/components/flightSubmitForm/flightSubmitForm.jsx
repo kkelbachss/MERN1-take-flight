@@ -36,26 +36,27 @@ function FlightSubmitForm() {
     async function submitHandler(e) {
         e.preventDefault();
 
-        //if _id then put request
-        if (formState._id) {
-            try {
-                console.log(formState._id)
-                await api.editflight(formState.id,{...formState});
-                setErrorMessage('... update success ...');
-                // used similar logic here to update flights and flag a refresh
-                let refresh = new Date().getTime();
-                dispatcher({type: 'SET_REFRESH', payload: refresh});
-                dispatcher({type: 'SET_SIDEBAR', payload: false});
-
-            } catch (err) {
-                console.error(err);
-                setErrorMessage('... update failed ...');
-            }
-        } else {  
-            //else post requests      
-            await checkFlights(formState)
+         
+        //else post requests      
+        await checkFlights(formState)
             .then((res)=> {
             if (res) {
+                //if _id then put request 
+                if (formState._id) {
+                    try {
+                        console.log("... updating flight ...")
+                        api.editflight(formState.id,{...formState});
+                        setErrorMessage('... update success ...');
+                        // used similar logic here to update flights and flag a refresh
+                        let refresh = new Date().getTime();
+                        dispatcher({type: 'SET_REFRESH', payload: refresh});
+                        dispatcher({type: 'SET_SIDEBAR', payload: false});
+
+                    } catch (err) {
+                        console.error(err);
+                        setErrorMessage('... update failed ...');
+                    }
+                } else {
                     try {
                         // console.log(formState);
                         api.createFlight(formState);
@@ -81,13 +82,13 @@ function FlightSubmitForm() {
                         console.error(err);
                         setErrorMessage('...flight not posted...')
                     } 
+                }
             } else {
-                console.log("ope");
+                console.log("... flight check failed ...");
                 setErrorMessage('...submission error...')
             }
-            }) 
-        }       
-    }
+        }) 
+    }       
 
     // updates error section and formState
     // set validators for time as well

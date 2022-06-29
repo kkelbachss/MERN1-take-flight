@@ -6,7 +6,7 @@ export function dateFormatter(date) {
 }
 
 export function editDateFormatter (date) {
-    return new Date(date).toISOString().split('.')[0];
+    return new Date(date).toLocaleString().split('.')[0];
 };
 
 export async function checkFlights(formState) {
@@ -14,7 +14,7 @@ export async function checkFlights(formState) {
         try {
             // console.log(formState.flightNumber);
             const flights = await api.getFlightsByName(formState.flightNumber);
-            console.log(flights.data.length);
+            console.log("flight matches :"+flights.data.length);
             let result;
             if (flights.data.length===0 || flights.data===undefined) {
                 result = true;
