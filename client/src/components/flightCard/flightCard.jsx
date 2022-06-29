@@ -55,12 +55,12 @@ function FlightCard() {
     return (
         <>
             { flightList.map((flight)=>(
-                <Col md={12} lg={12} xxl={6} xxxl={4} key={flight._id}>
-                    <Card fluid='lg' style={{ width: '40rem', margin: '5px', fontSize: '20px', backgroundColor:"skyblue"}} key={flight._id}>
+                <Col sm={12} md={6} lg={4} xl={3} xxl={3} key={flight._id}>
+                    <Card fluid='lg' style={{ width: '20rem', margin: '5px', fontSize: '15px', backgroundColor:"skyblue"}} key={flight._id}>
                         <Card.Body >
                             <Col>
                             <Row>
-                                <Card.Title style={{fontSize:'32px'}} key={flight.flightNumber}>
+                                <Card.Title style={{fontSize:'25px'}} key={flight.flightNumber}>
                                     Flight#: {flight.flightNumber}
                                 </Card.Title>
                             </Row>

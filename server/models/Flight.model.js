@@ -8,6 +8,7 @@ const flightSchema = new Schema({
     flightNumber: {
         type: String,
         required: true,
+        unique:false
         /*  maybe add some regex here to format
         *   first two characters are LETTERS, needs at least 1 digit, can have 4 digits
         *   https://en.wikipedia.org/wiki/Flight_number

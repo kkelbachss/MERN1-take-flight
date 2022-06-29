@@ -22,7 +22,6 @@ function FlightSubmitForm() {
             arrivalDate: '',
             currentPassengerCount: 0,
             passengerCapacity: 0,
-            refresh:0
         }
     );
    
@@ -36,19 +35,24 @@ function FlightSubmitForm() {
     // api call to post
     async function submitHandler(e) {
         e.preventDefault();
+
+        //if _id then put request
         if (formState._id) {
             try {
+                console.log(formState._id)
                 await api.editflight(formState.id,{...formState});
                 setErrorMessage('... update success ...');
                 // used similar logic here to update flights and flag a refresh
-                formState.refresh = new Date().getTime();
-                dispatcher({type: 'SET_REFRESH', payload: formState.refresh});
+                let refresh = new Date().getTime();
+                dispatcher({type: 'SET_REFRESH', payload: refresh});
+                dispatcher({type: 'SET_SIDEBAR', payload: false});
 
             } catch (err) {
                 console.error(err);
                 setErrorMessage('... update failed ...');
             }
-        } else {        
+        } else {  
+            //else post requests      
             await checkFlights(formState)
             .then((res)=> {
             if (res) {
@@ -57,9 +61,10 @@ function FlightSubmitForm() {
                         api.createFlight(formState);
                         setErrorMessage('...posting flight...');
                         // sending refresh to the store
-                        formState.refresh = new Date().getTime();
-                        dispatcher({type: 'SET_REFRESH', payload: formState.refresh});
-                        
+                        let refresh = new Date().getTime();
+                        dispatcher({type: 'SET_REFRESH', payload: refresh});
+                        dispatcher({type: 'SET_SIDEBAR', payload: false});
+
                         setErrorMessage('...flight posted...');
                         
                         //resets formState if successful
@@ -92,7 +97,7 @@ function FlightSubmitForm() {
         console.log("validator: "+validatorSwitch(e,formState))
         if (validatorSwitch(e,formState)) {
             setFormState({...formState, [e.target.name]: e.target.value});
-            console.log(formState)    
+            // console.log(formState)    
         } 
         // else {
         //     setFormState({...formState, [e.target.name]: null });

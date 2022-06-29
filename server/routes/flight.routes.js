@@ -52,8 +52,8 @@ router.get('/:id', async (req,res) => {
 router.put('/:id', async(req,res) => {
     try {
         console.log('...finding '+req.body._id+' and updating...')
-        // console.log(req.params.id);
-        const newFlight = await updateFlight(req.params.id,req.body)
+        // console.log(req.body._id);
+        const newFlight = await updateFlight(req.body._id,req.body)
         res.json(newFlight);
     } catch (err) {
         console.error(err);

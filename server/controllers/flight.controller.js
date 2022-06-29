@@ -57,7 +57,7 @@ const addFlight = async ({flightNumber, departureAirport, departureDate, arrival
 //UPDATE one flight
 const updateFlight = async (id, body) => {
     try {
-        const flight = await Flight.findOneAndUpdate(id, body, {new:true});
+        const flight = await Flight.findOneAndUpdate({"_id":id}, body, {new:true});
         return flight;
     } catch (err) {
         console.error(err);
