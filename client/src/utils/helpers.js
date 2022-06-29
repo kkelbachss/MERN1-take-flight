@@ -2,11 +2,12 @@ import api from './api';
 import {validateFlightTimesWithDb} from './validators';
 
 export function dateFormatter(date) {
-    return new Date(date).toUTCString();
+    return new Date(date).toUTCString().split('.')[0];
 }
+//should mae a local time formatter too
 
 export function editDateFormatter (date) {
-    return new Date(date).toLocaleString().split('.')[0];
+    return new Date(date).toISOString().split('.')[0];
 };
 
 export async function checkFlights(formState) {
