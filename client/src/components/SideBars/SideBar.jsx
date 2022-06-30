@@ -38,7 +38,7 @@ function SideBar() {
   // why did i use a sidebar!?!?! -_-
   useEffect(()=>{
     setShow(sideBar);
-  })
+  },[sideBar])
 
   return (
     <>
