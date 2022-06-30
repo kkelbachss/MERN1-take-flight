@@ -22,15 +22,16 @@ export function validateFlightTimes(reqFlightStart, reqFlightEnd) {
 }
 
 export function validateFlightTimesWithDb(currentFlightStart, currentFlightEnd, requestedFlightStart, requestedFlightEnd) {
+        //converts all times into a number for logical checking
         let cfs = new Date(currentFlightStart).getTime();
         let cfe = new Date(currentFlightEnd).getTime();
         let rfs = new Date(requestedFlightStart).getTime();
         let rfe = new Date(requestedFlightEnd).getTime();
 
-        console.log("cfs: "+ cfs);
-        console.log("cfe: "+ cfe);
-        console.log("rfs: "+ rfs);
-        console.log("rfe: "+ rfe);
+        // console.log("cfs: "+ cfs);
+        // console.log("cfe: "+ cfe);
+        // console.log("rfs: "+ rfs);
+        // console.log("rfe: "+ rfe);
         // console.log("rfs<cfe: "+(rfs<cfe));
         // console.log("cfs<rfs: "+(cfs<rfs));
         // console.log( "(cfs < rfs) && (rfs < cfe): "+((cfs < rfs) && (rfs < cfe) ));

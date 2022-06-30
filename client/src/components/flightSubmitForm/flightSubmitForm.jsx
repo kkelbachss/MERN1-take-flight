@@ -41,7 +41,6 @@ function FlightSubmitForm() {
         //else post requests      
         await checkFlights(formState)
             .then((res)=> {
-                console.log(res);
             if (res) {
                 //if _id then put request 
                 if (formState._id) {

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import FlightSubmitForm from '../FlightSubmitForm/FlightSubmitForm';
 import { useDispatch, useSelector } from 'react-redux';
-import store from'../../store';
+// import store from'../../store';
 import { useEffect } from 'react';
 
 function SideBar() {
