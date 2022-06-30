@@ -4,10 +4,10 @@ import {validateFlightTimesWithDb} from './validators';
 export function dateFormatter(date) {
     return new Date(date).toUTCString().split('.')[0];
 }
-//should mae a local time formatter too
+//should make a local time formatter too
 
 export function editDateFormatter (date) {
-    return new Date(date).toISOString().split('.')[0];
+    return new Date(date).toISOString().substring(0,16);
 };
 
 export async function checkFlights(formState) {

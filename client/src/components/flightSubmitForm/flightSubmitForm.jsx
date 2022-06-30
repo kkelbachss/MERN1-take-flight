@@ -11,6 +11,7 @@ import {Button, Card, ListGroup, ListGroupItem} from 'react-bootstrap';
 function FlightSubmitForm() {
     const dispatcher = useDispatch();
     let flightLoad = useSelector(store => store.flight);
+    let errorMsgLoad = useSelector(store=>store.errorMessage);
     //states for the form and error section in form
     const [formState, setFormState] = useState(flightLoad ||
         {
@@ -26,7 +27,7 @@ function FlightSubmitForm() {
     );
    
     //     //a little too complicated
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState(errorMsgLoad);
     // const [refreshKey, setRefreshKey] = useState(0);
     // const [flightNum, setFlightNum] = useState('');
     // const [dAirport, setDAirport] = useState('');
@@ -40,6 +41,7 @@ function FlightSubmitForm() {
         //else post requests      
         await checkFlights(formState)
             .then((res)=> {
+                console.log(res);
             if (res) {
                 //if _id then put request 
                 if (formState._id) {

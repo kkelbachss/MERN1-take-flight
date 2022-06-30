@@ -2,7 +2,7 @@ const initialState = {
     refresh: 0,
     errorMessage:'',
     flight:{},
-    sideBar:false
+    sideBar:false,
 };
 
 
@@ -10,7 +10,7 @@ export const reducer = (state=initialState, action) => {
     switch(action.type) {
         case 'SET_REFRESH':
             return {...state, refresh: action.payload};
-        case 'SET_ERROMSG':
+        case 'SET_ERRORMSG':
             // {type: 'ADD_FRIEND', payload: {firstName: 'Sally', 'lastName: 'Smith'}}
             return {...state, errorMessage: action.payload};
         case 'SET_FLIGHT':
