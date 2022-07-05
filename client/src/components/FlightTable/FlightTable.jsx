@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import './style.css';
 import api from '../../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { dateFormatter, editDateFormatter } from '../../utils/helpers';
+// import DeleteModal from '../DeleteModal/DeleteModal';
 
 
 
@@ -49,12 +51,12 @@ function FlightTable() {
         load = new Date().getTime();
         dispatcher({type: 'SET_REFRESH', payload: load});
     }
-     
+    
     //need an edit button to conditionally render submit form over Table
 
     return (
         <>
-        <Table striped bordered hover size="sm" responsive="sm" variant="dark">
+        <Table className="table" striped bordered hover size="sm" responsive="md" variant="dark">
             <thead>
                 <tr>
                     <th>Flight #</th>
@@ -90,8 +92,15 @@ function FlightTable() {
                         </td>
                         
                         <td>
-                        <Button variant="warning" style={{ margin: '5px'}} onClick={()=>{ stateHandler(flight) }}>EDIT</Button>
-                        <Button variant="danger" style={{ margin: '5px'}} onClick={()=>{ deleteHandler(flight._id,load) }}>DELETE</Button>
+                        
+                            <Button size="sm" variant="warning" onClick={()=>{ stateHandler(flight) }}>EDIT</Button>
+                           
+                            {/* <DeleteModal 
+                                // id={flight._id} 
+                                // fNum={flight.flightNumber}
+                            /> */}
+                            <Button size="sm" variant="danger" onClick={()=>{ deleteHandler(flight._id,load) }}>DELETE</Button>
+                         
                         </td>
                     </tr>
                 ))}

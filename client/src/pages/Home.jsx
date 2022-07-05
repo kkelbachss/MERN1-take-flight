@@ -1,25 +1,28 @@
 import React from 'react';
-// import './style.css';
+import './style.css';
+import NavBar from '../components/NavBar/NavBar';
 import FlightTable from '../components/FlightTable/FlightTable';
-import SideBar from '../components/SideBars/SideBar';
 // import FlightSubmitForm from '../components/FlightSubmitForm/FlightSubmitForm';
 import { Container, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SideMenu from '../components/SideMenu/SideMenu';
 
 
 function Home() {
     return (
         <>
 
-                        
+                <NavBar fixed="top" />       
                 <Container fluid>
-                    <SideBar />
+                                           
+                    <SideMenu />   
                     {/* <FlightSubmitForm /> */}
-                    <Row style={{justifyContent: 'space-around'}}>
+                    <Row>
                         
-                        <FlightTable fluid/>
+                        <FlightTable />
                         
                     </Row>
+                    
                 </Container>
             
             

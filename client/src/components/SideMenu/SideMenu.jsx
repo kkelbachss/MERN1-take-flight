@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import Modal from 'react-bootstrap/Modal';
 import FlightSubmitForm from '../FlightSubmitForm/FlightSubmitForm';
 import { useDispatch, useSelector } from 'react-redux';
 // import store from'../../store';
 import { useEffect } from 'react';
 
-function SideBar() {
+function SideMenu() {
   const dispatcher = useDispatch();
   const sideBar = useSelector(store => store.sideBar)
   // console.log("sidebar "+sideBar);
@@ -42,20 +42,20 @@ function SideBar() {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button style={{margin: "15px"}} variant="success" onClick={handleShow}>
         Add New Flight
       </Button>
 
-      <Offcanvas show={show} onHide={handleClose} backdrop="static"> 
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Flight Info</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <FlightSubmitForm />
-        </Offcanvas.Body>
-      </Offcanvas>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Flight Info</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FlightSubmitForm/>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
 
-export default SideBar;
+export default SideMenu;
