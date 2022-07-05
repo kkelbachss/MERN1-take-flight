@@ -1,6 +1,6 @@
 import React from 'react';
 // import './style.css';
-import FlightCard from '../components/FlightCard/FlightCard';
+import FlightTable from '../components/FlightTable/FlightTable';
 import SideBar from '../components/SideBars/SideBar';
 // import FlightSubmitForm from '../components/FlightSubmitForm/FlightSubmitForm';
 import { Container, Row } from 'react-bootstrap';
@@ -17,7 +17,7 @@ function Home() {
                     {/* <FlightSubmitForm /> */}
                     <Row style={{justifyContent: 'space-around'}}>
                         
-                        <FlightCard fluid/>
+                        <FlightTable fluid/>
                         
                     </Row>
                 </Container>
