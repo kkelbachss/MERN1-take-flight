@@ -14,6 +14,7 @@ function FlightTable() {
     
     const dispatcher = useDispatch();
     const [flightList, setFlightList] = useState([]);
+    const [showDelete, setShowDelete] = useState(false);
     // const [refreshKey, setRefreshKey] = useState(0);
     // setRefreshKey(load);
     // console.log(load);
@@ -21,10 +22,10 @@ function FlightTable() {
     
     async function fetchData() {
     
-    const res = await api.getFlights()
-    console.log(res.data);
-    setFlightList(res.data);
-    
+        const res = await api.getFlights()
+        console.log(res.data);
+        // dispatcher({type: 'SET_ALL_FLIGHT', payload: res.data});
+        setFlightList(res.data);
     };
 
     // find whether to reset
@@ -50,13 +51,18 @@ function FlightTable() {
         // this will update the store and refresh the page
         load = new Date().getTime();
         dispatcher({type: 'SET_REFRESH', payload: load});
+        handleDeleteClose();
     }
     
+    
+
+    const handleDeleteClose = () => setShowDelete(false);
+    const handleDeleteOpen = () => setShowDelete(true);
     //need an edit button to conditionally render submit form over Table
 
     return (
         <>
-        <Table className="table" striped bordered hover size="sm" responsive="md" variant="dark">
+        <Table className="table" striped bordered hover size="auto" responsive="auto" variant="dark">
             <thead>
                 <tr>
                     <th>Flight #</th>
@@ -78,14 +84,15 @@ function FlightTable() {
                             {flight.departureAirport} 
                         </td>
                         <td key={flight.departureDate}>
-                            {dateFormatter(flight.departureDate)}
+                            {dateFormatter(flight.departureDate).split(",")[0]}<br/>
+                            {dateFormatter(flight.departureDate).substring(10)}
                         </td>
                         <td key={flight.arrivalAirport}>
                             {flight.arrivalAirport} 
                         </td>
                         <td key={flight.arrivalDate}>
-                            {dateFormatter(flight.arrivalDate)}
-                            
+                            {dateFormatter(flight.arrivalDate).split(",")[0]}<br/>
+                            {dateFormatter(flight.arrivalDate).substring(10)}
                         </td>
                         <td key={flight.passengerCapacity}>
                             {flight.currentPassengerCount} / {flight.passengerCapacity}
@@ -93,13 +100,21 @@ function FlightTable() {
                         
                         <td>
                         
-                            <Button size="sm" variant="warning" onClick={()=>{ stateHandler(flight) }}>EDIT</Button>
+                            
                            
                             {/* <DeleteModal 
                                 // id={flight._id} 
                                 // fNum={flight.flightNumber}
                             /> */}
-                            <Button size="sm" variant="danger" onClick={()=>{ deleteHandler(flight._id,load) }}>DELETE</Button>
+                            {!showDelete?
+                                <>
+                                <Button className="configBtn" size="sm" variant="warning" onClick={()=>{ stateHandler(flight) }}>EDIT</Button>
+                                <Button className="configBtn" size="sm" variant="danger" onClick={()=>{ handleDeleteOpen() }}>DELETE</Button>
+                                </>:<>
+                                <Button className="configBtn" size="sm" variant="danger" onClick={()=>{ deleteHandler(flight._id,load) }}>Are you sure?</Button>
+                                <Button className="configBtn" size="sm" variant="warning" onClick={()=>{ handleDeleteClose() }}>Cancel</Button>
+                                </>
+                            }
                          
                         </td>
                     </tr>

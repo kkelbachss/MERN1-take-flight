@@ -1,5 +1,16 @@
+import { editDateFormatter } from'./helpers';
 //change all of these back to true/false
 
+
+//made a getter and setter for error message
+let error = '';
+function setErrorMsg(msg) {
+        error = msg;
+}
+
+export function getErrorMsg(){
+        return error;
+}
 
 export function validateFlightNum(fNum) {
         const regex = new RegExp(/^((?:[a-z][a-z]|[a-z][0-9]|[0-9][a-z])[a-z]?)([0-9]{1,4}[a-z]?)$/gi);
@@ -23,21 +34,23 @@ export function validateFlightTimes(reqFlightStart, reqFlightEnd) {
 
 export function validateFlightTimesWithDb(currentFlightStart, currentFlightEnd, requestedFlightStart, requestedFlightEnd) {
         //converts all times into a number for logical checking
-        let cfs = new Date(currentFlightStart).getTime();
-        let cfe = new Date(currentFlightEnd).getTime();
-        let rfs = new Date(requestedFlightStart).getTime();
-        let rfe = new Date(requestedFlightEnd).getTime();
+        let cfs = new Date(editDateFormatter(currentFlightStart)).getTime();
+        let cfe = new Date(editDateFormatter(currentFlightEnd)).getTime();
+        let rfs = new Date(editDateFormatter(requestedFlightStart)).getTime();
+        let rfe = new Date(editDateFormatter(requestedFlightEnd)).getTime();
 
-        // console.log("cfs: "+ cfs);
-        // console.log("cfe: "+ cfe);
-        // console.log("rfs: "+ rfs);
-        // console.log("rfe: "+ rfe);
+        console.log("cfs: "+ cfs);
+        console.log("cfe: "+ cfe);
+        console.log("rfs: "+ rfs);
+        console.log("rfe: "+ rfe);
         // console.log("rfs<cfe: "+(rfs<cfe));
         // console.log("cfs<rfs: "+(cfs<rfs));
         // console.log( "(cfs < rfs) && (rfs < cfe): "+((cfs < rfs) && (rfs < cfe) ));
         // console.log("( cfs < rfe )&&( rfe < cfe ): "+(( cfs < rfe )&&( rfe < cfe )));
         // console.log("(( cfs < rfs )&&( rfs < cfe )) ||(( cfs < rfe )&&( rfe < cfe )): "+((( cfs < rfs )&&( rfs < cfe )) ||(( cfs < rfe )&&( rfe < cfe ))))
         // console.log("(rfs<cfs)&&(cfe<rfe): "+((rfs<cfs)&&(cfe<rfe)));
+
+        
 
         if ((( cfs < rfs )&&( rfs < cfe )) || (( cfs < rfe )&&( rfe < cfe ))) {
                 return false
@@ -59,21 +72,51 @@ export function validateAirport(name){
 export function validatorSwitch(e,f) {
 
         if (e.target.name === "departureDate" && f.arrivalDate !== '') {
+                if (!validateFlightTimes(e.target.value)) {
+                        setErrorMsg("...Invalid Flight Times...");
+                } else {
+                        setErrorMsg("")
+                }
                 return validateFlightTimes(e.target.value, f.arrivalDate);
                 
         } else if (e.target.name === "arrivalDate" && f.departureDate !== '') {
-               return validateFlightTimes(f.departureDate, e.target.value);
+                if (!validateFlightTimes(e.target.value)) {
+                        setErrorMsg("...Invalid Flight Times...");
+                } else {
+                        setErrorMsg("")
+                }
+                return validateFlightTimes(f.departureDate, e.target.value);
                 
         } else if (e.target.name === 'flightNumber') {
+                if (!validateFlightNum(e.target.value)) {
+                        setErrorMsg("...Invalid Flight Number...");
+                } else {
+                        setErrorMsg("")
+                }
                 return validateFlightNum(e.target.value);
                       
         } else if (e.target.name === 'departureAirport' || e.target.name === "arrivalAirport") {
-               return validateAirport(e.target.value)
+                if (!validateAirport(e.target.value)) {
+                        setErrorMsg("...Invalid Airport...");
+                } else {
+                        setErrorMsg("")
+                }
+                return validateAirport(e.target.value)
                 
         } else if (e.target.name === "currentPassengerCount" && f.passengerCapacity) {
+                if (!validatePassengerCap(e.target.value)) {
+                        setErrorMsg("...Invalid PassengerCount...");
+                } else {
+                        setErrorMsg("")
+                }
                 return validatePassengerCap(e.target.value, f.passengerCapacity)
                 
         } else if (e.target.name === "passengerCapacity" && f.currentPassengerCount) {
+                if (!validatePassengerCap(e.target.value)) {
+                        setErrorMsg("...Invalid PassengerCount...");
+                } else {
+                        setErrorMsg("")
+                }
                 return validatePassengerCap(f.currentPassengerCount, e.target.value)
                 
         } else {

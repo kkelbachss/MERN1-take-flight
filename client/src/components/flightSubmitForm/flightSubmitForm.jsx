@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../../utils/api';
 import { checkFlights } from '../../utils/helpers';
-import { validatorSwitch } from '../../utils/validators';
+import { validatorSwitch, getErrorMsg } from '../../utils/validators';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Card, ListGroup, ListGroupItem} from 'react-bootstrap';
 
@@ -100,10 +100,11 @@ function FlightSubmitForm() {
         if (validatorSwitch(e,formState)) {
             setFormState({...formState, [e.target.name]: e.target.value});
             // console.log(formState)    
+            setErrorMessage("");
         } 
-        // else {
-        //     setFormState({...formState, [e.target.name]: null });
-        // }
+        else {
+            setErrorMessage(getErrorMsg);
+        }
     };
 
     // a beefy submit form
