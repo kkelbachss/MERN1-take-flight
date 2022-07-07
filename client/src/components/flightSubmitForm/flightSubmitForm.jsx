@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../../utils/api';
-import { checkFlights } from '../../utils/helpers';
+import { checkFlights, dateEditFormatter } from '../../utils/helpers';
 import { validatorSwitch, getErrorMsg } from '../../utils/validators';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Card, ListGroup, ListGroupItem} from 'react-bootstrap';
@@ -135,7 +135,7 @@ function FlightSubmitForm() {
                         <label className="form-title" htmlFor="departureDate">Departure Date:</label>
                     </div>
                     <div>
-                        <input type="datetime-local" name="departureDate" value={formState.departureDate} onChange={event => {setFormState({...formState, "departureDate":event.target.value})}} onBlur={changeHandler}/>
+                        <input type="datetime-local" name="departureDate" value={dateEditFormatter(formState.departureDate)} onChange={event => {setFormState({...formState, "departureDate":event.target.value})}} onBlur={changeHandler}/>
                     </div>
                     </ListGroupItem>
                     <ListGroupItem className="list-group-flush">
@@ -150,7 +150,7 @@ function FlightSubmitForm() {
                             <label className="form-title" htmlFor="arrivalDate">Arrival Date:</label>
                         </div>
                         <div>
-                            <input type="datetime-local" name="arrivalDate" value={formState.arrivalDate} onChange={event => {setFormState({...formState, "arrivalDate":event.target.value})}} onBlur={changeHandler}/>
+                            <input type="datetime-local" name="arrivalDate" value={dateEditFormatter(formState.arrivalDate)} onChange={event => {setFormState({...formState, "arrivalDate":event.target.value})}} onBlur={changeHandler}/>
                         </div>
                     </ListGroupItem>
                     <ListGroupItem className="list-group-flush">

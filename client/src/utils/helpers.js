@@ -1,12 +1,36 @@
 import api from './api';
 import {validateFlightTimesWithDb} from './validators';
 
-export function dateFormatter(date) {
-    return new Date(date).toUTCString().split('.')[0];
-}
+//i made both of these in Zulu time since the formatter was shifting my times around
 //should make a local time formatter too
+export function dateLocalFormatter(date) {
+    return new Date(date).toLocaleString('en-US', { timeZone: 'America/Detroit' }).split('.')[0];
+}
 
-export function editDateFormatter (date) {
+export function dateEditFormatter(date) {
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+      
+    function formatDate(date) {
+        return (
+          [
+            date.getFullYear(),
+            padTo2Digits(date.getMonth() + 1),
+            padTo2Digits(date.getDate()),
+          ].join('-') +
+          'T' +
+          [
+            padTo2Digits(date.getHours()),
+            padTo2Digits(date.getMinutes()),
+          ].join(':')
+        );
+    }
+    let newDate = formatDate(new Date(date));
+    return newDate;
+}
+
+export function dateISOFormatter (date) {
     return new Date(date).toISOString().substring(0,16);
 };
 

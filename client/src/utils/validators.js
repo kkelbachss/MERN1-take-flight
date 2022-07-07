@@ -1,4 +1,4 @@
-import { editDateFormatter } from'./helpers';
+import { dateISOFormatter } from'./helpers';
 //change all of these back to true/false
 
 
@@ -34,10 +34,10 @@ export function validateFlightTimes(reqFlightStart, reqFlightEnd) {
 
 export function validateFlightTimesWithDb(currentFlightStart, currentFlightEnd, requestedFlightStart, requestedFlightEnd) {
         //converts all times into a number for logical checking
-        let cfs = new Date(editDateFormatter(currentFlightStart)).getTime();
-        let cfe = new Date(editDateFormatter(currentFlightEnd)).getTime();
-        let rfs = new Date(editDateFormatter(requestedFlightStart)).getTime();
-        let rfe = new Date(editDateFormatter(requestedFlightEnd)).getTime();
+        let cfs = new Date(dateISOFormatter(currentFlightStart)).getTime();
+        let cfe = new Date(dateISOFormatter(currentFlightEnd)).getTime();
+        let rfs = new Date(dateISOFormatter(requestedFlightStart)).getTime();
+        let rfe = new Date(dateISOFormatter(requestedFlightEnd)).getTime();
 
         console.log("cfs: "+ cfs);
         console.log("cfe: "+ cfe);

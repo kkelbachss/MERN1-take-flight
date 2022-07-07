@@ -4,7 +4,7 @@ import api from '../../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { dateFormatter, editDateFormatter } from '../../utils/helpers';
+import { dateLocalFormatter } from '../../utils/helpers';
 // import DeleteModal from '../DeleteModal/DeleteModal';
 
 
@@ -37,10 +37,11 @@ function FlightTable() {
     
     function stateHandler(prop) {
         //need to format dates to show up on submit form
-        prop.arrivalDate = editDateFormatter(prop.arrivalDate);
-        prop.departureDate = editDateFormatter(prop.departureDate);
+        
         dispatcher({type: 'SET_FLIGHT', payload: prop});
         dispatcher({type: 'SET_SIDEBAR', payload: true});
+        
+        
         // console.log(prop);
     }
 
@@ -58,7 +59,7 @@ function FlightTable() {
 
     const handleDeleteClose = () => setShowDelete(false);
     const handleDeleteOpen = () => setShowDelete(true);
-    //need an edit button to conditionally render submit form over Table
+    //need an Local button to conditionally render submit form over Table
 
     return (
         <>
@@ -84,15 +85,15 @@ function FlightTable() {
                             {flight.departureAirport} 
                         </td>
                         <td key={flight.departureDate}>
-                            {dateFormatter(flight.departureDate).split(",")[0]}<br/>
-                            {dateFormatter(flight.departureDate).substring(10)}
+                            {dateLocalFormatter(flight.departureDate).split(",")[0]}<br/>
+                            {dateLocalFormatter(flight.departureDate).substring(10)}
                         </td>
                         <td key={flight.arrivalAirport}>
                             {flight.arrivalAirport} 
                         </td>
                         <td key={flight.arrivalDate}>
-                            {dateFormatter(flight.arrivalDate).split(",")[0]}<br/>
-                            {dateFormatter(flight.arrivalDate).substring(10)}
+                            {dateLocalFormatter(flight.arrivalDate).split(",")[0]}<br/>
+                            {dateLocalFormatter(flight.arrivalDate).substring(10)}
                         </td>
                         <td key={flight.passengerCapacity}>
                             {flight.currentPassengerCount} / {flight.passengerCapacity}
