@@ -39,10 +39,10 @@ export function validateFlightTimesWithDb(currentFlightStart, currentFlightEnd, 
         let rfs = new Date(dateISOFormatter(requestedFlightStart)).getTime();
         let rfe = new Date(dateISOFormatter(requestedFlightEnd)).getTime();
 
-        console.log("cfs: "+ cfs);
-        console.log("cfe: "+ cfe);
-        console.log("rfs: "+ rfs);
-        console.log("rfe: "+ rfe);
+        // console.log("cfs: "+ cfs);
+        // console.log("cfe: "+ cfe);
+        // console.log("rfs: "+ rfs);
+        // console.log("rfe: "+ rfe);
         // console.log("rfs<cfe: "+(rfs<cfe));
         // console.log("cfs<rfs: "+(cfs<rfs));
         // console.log( "(cfs < rfs) && (rfs < cfe): "+((cfs < rfs) && (rfs < cfe) ));
@@ -53,10 +53,13 @@ export function validateFlightTimesWithDb(currentFlightStart, currentFlightEnd, 
         
 
         if ((( cfs < rfs )&&( rfs < cfe )) || (( cfs < rfe )&&( rfe < cfe ))) {
+                
                 return false
         } else if (( rfs < cfs ) && ( cfe < rfe )) {
+                                
                 return false
         } else {
+                
                 return true;
         }
 }

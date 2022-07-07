@@ -7,7 +7,9 @@ export function dateLocalFormatter(date) {
     return new Date(date).toLocaleString('en-US', { timeZone: 'America/Detroit' }).split('.')[0];
 }
 
+//found this function to format time into yyyy-mm-ddThh:mm
 export function dateEditFormatter(date) {
+    if (date){
     function padTo2Digits(num) {
         return num.toString().padStart(2, '0');
     }
@@ -28,8 +30,12 @@ export function dateEditFormatter(date) {
     }
     let newDate = formatDate(new Date(date));
     return newDate;
+    } else {
+        return ""
+    }
 }
 
+//need this for data base validator
 export function dateISOFormatter (date) {
     return new Date(date).toISOString().substring(0,16);
 };
@@ -40,22 +46,25 @@ export async function checkFlights(formState) {
             // console.log(formState.flightNumber);
             const flights = await api.getFlightsByName(formState.flightNumber);
             console.log("flight matches :"+flights.data.length);
-            let result;
-            if (flights.data.length===0 || flights.data===undefined) {
-                result = true;
-            } else {
-                for (let i = 0; i < flights.data.length; i++) {
-                // console.log(flights.data[i]);
-                if (!validateFlightTimesWithDb(flights.data[i].departureDate, flights.data[i].arrivalDate, formState.departureDate, formState.arrivalDate)) {
-                    
-                    result = false;
-                } else {
-                    
-                    result = true;
-                }
-            }}
-            return result;
             
+            let result = 0;
+            
+            for (let i = 0; i < flights.data.length; i++) {
+            // console.log(flights.data[i]);
+            if (!validateFlightTimesWithDb(flights.data[i].departureDate, flights.data[i].arrivalDate, formState.departureDate, formState.arrivalDate)) {
+                
+                result++;
+            } 
+            }
+
+            if (result>0) {
+                //if more than one error
+                return false;
+            } else {
+                //if no error
+                return true;
+            }
+
         } catch(err) {
             console.error(err);
         }

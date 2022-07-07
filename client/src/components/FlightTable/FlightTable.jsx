@@ -55,6 +55,10 @@ function FlightTable() {
         handleDeleteClose();
     }
     
+    // function sortFlightByNum(fList) {
+    //     const sorted = [fList].sort((a,b)=> b[fList.flightNumber]-a[fList.flightNumber]);
+    //     setFlightList(sorted);
+    // }
     
 
     const handleDeleteClose = () => setShowDelete(false);
@@ -63,7 +67,7 @@ function FlightTable() {
 
     return (
         <>
-        <Table className="table" striped bordered hover size="auto" responsive="auto" variant="dark">
+        <Table className="table text-center" striped bordered hover size="auto" responsive="auto" variant="dark">
             <thead>
                 <tr>
                     <th>Flight #</th>

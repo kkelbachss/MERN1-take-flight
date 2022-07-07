@@ -36,7 +36,7 @@ function FlightSubmitForm() {
     // api call to post
     async function submitHandler(e) {
         e.preventDefault();
-
+        // if (validatorSwitch(formState))
          
         //else post requests      
         await checkFlights(formState)

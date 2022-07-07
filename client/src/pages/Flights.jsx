@@ -10,8 +10,8 @@ import SideMenu from '../components/SideMenu/SideMenu';
 function Flights() {
     return (
         <>         
-            <Container fluid>                      
-                <SideMenu />   
+            <Container fluid>                       
+                <SideMenu /> 
                 {/* <FlightSubmitForm /> */}
                 <Row>
                     <FlightTable />

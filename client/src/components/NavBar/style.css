@@ -19,3 +19,7 @@ a:hover {
 a.navbar-brand:hover {
     color: rgb(175, 175, 175);
 }
+
+nav {
+    width: 100%;
+}
