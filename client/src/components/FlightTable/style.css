@@ -31,3 +31,28 @@
 
     
 }
+
+@media screen and (max-width: 900px) {
+    .table {
+        font-size: 12px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .row {
+        width:80%;
+        
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .editDeleteDiv {
+        margin: 0% -10%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .editDeleteDiv {
+        margin: 0% -25%;
+    }
+}

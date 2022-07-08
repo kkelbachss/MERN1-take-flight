@@ -44,7 +44,7 @@ function FlightTable() {
 
     async function deleteHandler(id) {
         await api.deleteFlight(id)
-        
+
         // this will update the store and refresh the page
         let load = new Date().getTime() + (Math.floor(Math.random() * 1000));
         dispatcher({type: 'SET_REFRESH', payload: load});
@@ -71,8 +71,8 @@ function FlightTable() {
                     <th>Arrival Airport</th>
                     <th>Arrival Date</th>
                     <th>Capacity</th>
-                    <th>Configure</th>
-                    <th className="position-fixed align-right">
+                    <th className="">Configure</th>
+                    <th className="position-fixed align-right editDeleteDiv">
                         {!showDelete?
                             <>
                             {/* <Button className="configBtn" size="sm" variant="warning" onClick={()=>{ stateHandler(flight) }}>EDIT</Button> */}
