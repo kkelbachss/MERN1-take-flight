@@ -40,24 +40,47 @@ export function dateISOFormatter (date) {
     return new Date(date).toISOString().substring(0,16);
 };
 
+let error = '';
+function setDataMsg(msg) {
+        error = msg;
+}
+
+export function getDataMsg(){
+        return error;
+}
+
 export async function checkFlights(formState) {
     
         try {
             // console.log(formState.flightNumber);
             const flights = await api.getFlightsByName(formState.flightNumber);
-            console.log("flight matches :"+flights.data.length);
+            // console.log("flight matches :"+flights.data.length);
             
             let result = 0;
-            
+            let conflicts = [];
+            // console.log(flights.data)
             for (let i = 0; i < flights.data.length; i++) {
             // console.log(flights.data[i]);
-            if (!validateFlightTimesWithDb(flights.data[i].departureDate, flights.data[i].arrivalDate, formState.departureDate, formState.arrivalDate)) {
-                
-                result++;
-            } 
+                if(formState._id === flights.data[i]._id){
+                    //do nothing
+                } else {
+                    if (!validateFlightTimesWithDb(flights.data[i].departureDate, flights.data[i].arrivalDate, formState.departureDate, formState.arrivalDate)) {
+                        conflicts.push({
+                            dDate: flights.data[i].departureDate,
+                            aDate: flights.data[i].arrivalDate,
+                        })
+                        result++;
+                    }
+                } 
             }
 
             if (result>0) {
+                //i know this is a string in a string but i couldnt find how else to get it to
+                setDataMsg(
+                    conflicts.map((conflict)=>{return `TIME CONFLICT:
+                    DEPARTURE: ${dateLocalFormatter(conflict.dDate)}
+                    ARRIVAL: ${dateLocalFormatter(conflict.aDate)}`})
+                )
                 //if more than one error
                 return false;
             } else {

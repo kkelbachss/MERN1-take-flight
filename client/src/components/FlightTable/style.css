@@ -1,12 +1,33 @@
-
+.table {
+    font-size: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
 
 .row {
-    width:max-content;
+    width:70%;
     
 }
 
 .configBtn {
     min-width: 85%;
     width: 85%;
-    margin: 0% 7%
+    margin: 0% 7%;
+}
+
+.editDeleteBtn {
+    overflow: hidden;
+    text-align: start;
+    width: 100%;
+    margin:0%;
+}
+
+@media screen and (max-width: 1260px) {
+    .table {
+        font-size: 15px;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    
 }

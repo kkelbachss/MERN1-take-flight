@@ -32,7 +32,7 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <NavBar fixed="top" />  
+        <NavBar fixed="fixed" />  
           <Routes>
             <Route path="/" element={<Flights />} />
             <Route path="/flights" element={<Flights />} />

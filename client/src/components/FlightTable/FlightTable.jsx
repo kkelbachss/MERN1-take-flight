@@ -23,7 +23,7 @@ function FlightTable() {
     async function fetchData() {
     
         const res = await api.getFlights()
-        console.log(res.data);
+        // console.log(res.data);
         // dispatcher({type: 'SET_ALL_FLIGHT', payload: res.data});
         setFlightList(res.data);
     };
@@ -37,22 +37,17 @@ function FlightTable() {
     
     function stateHandler(prop) {
         //need to format dates to show up on submit form
-        
         dispatcher({type: 'SET_FLIGHT', payload: prop});
         dispatcher({type: 'SET_SIDEBAR', payload: true});
-        
-        
         // console.log(prop);
     }
 
     async function deleteHandler(id) {
         await api.deleteFlight(id)
-        console.log("...flight "+id+" deleted...")
-
+        
         // this will update the store and refresh the page
-        load = new Date().getTime();
+        let load = new Date().getTime() + (Math.floor(Math.random() * 1000));
         dispatcher({type: 'SET_REFRESH', payload: load});
-        handleDeleteClose();
     }
     
     // function sortFlightByNum(fList) {
@@ -67,7 +62,7 @@ function FlightTable() {
 
     return (
         <>
-        <Table className="table text-center" striped bordered hover size="auto" responsive="auto" variant="dark">
+        <Table className="table center" style={{marginTop:"110px"}} striped bordered hover responsive="auto" variant="dark">
             <thead>
                 <tr>
                     <th>Flight #</th>
@@ -77,6 +72,17 @@ function FlightTable() {
                     <th>Arrival Date</th>
                     <th>Capacity</th>
                     <th>Configure</th>
+                    <th className="position-fixed align-right">
+                        {!showDelete?
+                            <>
+                            {/* <Button className="configBtn" size="sm" variant="warning" onClick={()=>{ stateHandler(flight) }}>EDIT</Button> */}
+                            <Button className="configBtn editDeleteBtn" size="md" variant="danger" onClick={()=>{ handleDeleteOpen() }}><strong>Edit/Delete</strong></Button>
+                            </>:<>
+                            {/* <Button className="configBtn" size="sm" variant="danger" onClick={()=>{ deleteHandler(flight._id,load) }}>DELETE</Button> */}
+                            <Button className="configBtn editDeleteBtn" size="md" variant="warning" onClick={()=>{ handleDeleteClose() }}><strong>Edit/Delete</strong></Button>
+                            </>
+                        }
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -114,10 +120,10 @@ function FlightTable() {
                             {!showDelete?
                                 <>
                                 <Button className="configBtn" size="sm" variant="warning" onClick={()=>{ stateHandler(flight) }}>EDIT</Button>
-                                <Button className="configBtn" size="sm" variant="danger" onClick={()=>{ handleDeleteOpen() }}>DELETE</Button>
+                                {/* <Button className="configBtn" size="sm" variant="danger" onClick={()=>{ handleDeleteOpen() }}>DELETE</Button> */}
                                 </>:<>
-                                <Button className="configBtn" size="sm" variant="danger" onClick={()=>{ deleteHandler(flight._id,load) }}>Are you sure?</Button>
-                                <Button className="configBtn" size="sm" variant="warning" onClick={()=>{ handleDeleteClose() }}>Cancel</Button>
+                                <Button className="configBtn" size="sm" variant="danger" onClick={()=>{ deleteHandler(flight._id,load) }}>DELETE</Button>
+                                {/* <Button className="configBtn" size="sm" variant="warning" onClick={()=>{ handleDeleteClose() }}>Cancel</Button> */}
                                 </>
                             }
                          

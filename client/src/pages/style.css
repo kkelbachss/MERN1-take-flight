@@ -1,7 +1,8 @@
 body {
     background-image: url("../assets/shutterstock_745544935.jpg");
+    background-attachment: fixed;
+    background-position: center;
     background-size:fill;
-    background-position: 0% 25%;
     background-repeat:no-repeat;
 }
 
