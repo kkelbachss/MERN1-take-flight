@@ -79,7 +79,7 @@ export async function checkFlights(formState) {
                 setDataMsg(
                     conflicts.map((conflict)=>{return `TIME CONFLICT:
                     DEPARTURE: ${dateLocalFormatter(conflict.dDate)}
-                    ARRIVAL: ${dateLocalFormatter(conflict.aDate)}`})
+                    ARRIVAL: ${dateLocalFormatter(conflict.aDate)} -- `})
                 )
                 //if more than one error
                 return false;
